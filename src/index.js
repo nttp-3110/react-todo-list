@@ -8,6 +8,9 @@ import "./index.css";
 import { createGlobalStyle } from "styled-components";
 import $ from "jquery";
 import { PersistGate } from "redux-persist/integration/react";
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
 
 const { persistor, store } = Store();
 
@@ -22,14 +25,17 @@ const GlobalStyle = createGlobalStyle`
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <GlobalStyle />
-      <App />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {/* <GlobalStyle /> */}
+        <App />
+      </ThemeProvider>
     </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
 
-$(document).bind("DOMNodeRemoved", function(e) {
+$(document).bind("DOMNodeRemoved", function (e) {
   console.log("Removed: " + e.target.nodeName);
 });
 
